@@ -6,6 +6,8 @@ import PostForm from "./components/PostForm/PostForm";
 import PostInfo from "./components/PostInfo/PostInfo";
 import axiosApi from "./axiosApi";
 import PostEdit from "./components/PostEdit/PostEdit";
+import About from "./containers/About/About";
+import Contacts from "./containers/Contacts/Contacts";
 
 function App() {
   const request = async () => {
@@ -35,6 +37,8 @@ function App() {
             path="/post/:postId/edit"
             element={<PostEdit request={request} />}
           />
+          <Route path="/about" element={<About />} />
+          <Route path="/contacts" element={<Contacts />} />
         </Routes>
       </main>
     </>

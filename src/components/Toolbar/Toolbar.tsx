@@ -6,7 +6,9 @@ const Toolbar = () => {
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Blog</Navbar.Brand>
+        <NavLink to="/" className="navbar-brand">
+          Blog
+        </NavLink>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <NavLink to="/" className="nav-link mx-3">
@@ -17,6 +19,9 @@ const Toolbar = () => {
           </NavLink>
           <NavLink to="/about" className="nav-link mx-3">
             About
+          </NavLink>
+          <NavLink to="/contacts" className="nav-link mx-3">
+            Contacts
           </NavLink>
         </Navbar.Collapse>
       </Container>
