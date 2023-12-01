@@ -1,10 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { PostMutation } from "../../type";
+import { PostsList } from "../../type";
 import React from "react";
 import axiosApi from "../../axiosApi";
 
 interface Props {
-  posts: PostMutation[];
+  posts: PostsList;
 }
 
 const PostInfo: React.FC<Props> = ({ posts }) => {
@@ -21,6 +21,7 @@ const PostInfo: React.FC<Props> = ({ posts }) => {
   }
 
   const onDelete = async () => {
+    await axiosApi.delete("posts/" + [Object.keys(posts)[index]][0] + ".json");
     navigate("/");
   };
 

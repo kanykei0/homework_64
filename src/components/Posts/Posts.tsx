@@ -1,20 +1,20 @@
 import React from "react";
-import { PostMutation } from "../../type";
+import { PostsList } from "../../type";
 import PostItem from "./PostItem";
 
 interface Props {
-  posts: PostMutation[];
+  posts: PostsList;
 }
 
 const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <div>
-      {Object.values(posts).map((post) => (
+      {Object.keys(posts).map((key) => (
         <PostItem
-          key={post.postId}
-          postId={post.postId}
-          title={post.title}
-          description={post.description}
+          key={key}
+          postId={posts[key].postId}
+          title={posts[key].title}
+          description={posts[key].description}
         />
       ))}
     </div>

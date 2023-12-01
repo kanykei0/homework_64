@@ -7,3 +7,6 @@ export interface PostMutation {
   title: string;
   description: string;
 }
+interface PostsList {
+  [postId: string]: PostMutation;
+}
