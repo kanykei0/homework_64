@@ -25,7 +25,7 @@ const PostForm: React.FC = () => {
     event.preventDefault();
     setLoading(true);
 
-    const date = new Date().getTime();
+    const date = new Date().getTime().toString();
     const newPost = {
       postId: date,
       ...post,

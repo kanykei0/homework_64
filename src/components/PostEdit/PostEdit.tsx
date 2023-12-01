@@ -7,24 +7,36 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
 interface Props {
-  posts: PostsList;
+  request: () => Promise<PostsList>;
 }
 
-const PostEdit: React.FC<Props> = ({ posts }) => {
+const PostEdit: React.FC<Props> = ({ request }) => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [info, setInfo] = useState<Post | undefined>(undefined);
+  const [posts, setPosts] = useState<PostsList | undefined>(undefined);
 
   useEffect(() => {
-    const index = Object.values(posts).findIndex(
-      (post) => post.postId.toString() === params.postId
-    );
+    const fetchData = async () => {
+      try {
+        const postsData = await request();
+        setPosts(postsData);
 
-    if (index !== -1) {
-      setInfo(Object.values(posts)[index]);
-    }
-  }, [params.postId, posts]);
+        const index = Object.values(postsData).findIndex(
+          (post) => post.postId === params.postId
+        );
+
+        if (index !== -1) {
+          setInfo(Object.values(postsData)[index]);
+        }
+      } catch (error) {
+        throw error;
+      }
+    };
+
+    fetchData();
+  }, [request]);
 
   const [post, setPost] = useState<Post>({
     title: info?.title || "",
@@ -49,20 +61,27 @@ const PostEdit: React.FC<Props> = ({ posts }) => {
     event.preventDefault();
     setLoading(true);
 
-    const index = Object.values(posts).findIndex(
-      (post) => post.postId.toString() === params.postId
-    );
-    let postIndex;
+    if (posts) {
+      const index = Object.values(posts).findIndex(
+        (post) => post.postId === params.postId
+      );
+      let postIndex;
 
-    if (index !== -1) {
-      postIndex = [Object.keys(posts)[index]][0];
-    }
+      if (index !== -1) {
+        postIndex = [Object.keys(posts)[index]][0];
+      }
 
-    try {
-      await axiosApi.put("posts/" + postIndex + ".json", post);
-      navigate("/");
-    } finally {
-      setLoading(false);
+      const newPost = {
+        postId: params.postId,
+        ...post,
+      };
+
+      try {
+        await axiosApi.put(`posts/${postIndex}.json`, newPost);
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 

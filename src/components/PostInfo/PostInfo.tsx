@@ -1,34 +1,50 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { PostsList } from "../../type";
-import React from "react";
+import { PostMutation, PostsList } from "../../type";
+import React, { useEffect, useState } from "react";
 import axiosApi from "../../axiosApi";
 
 interface Props {
-  posts: PostsList;
+  request: () => Promise<PostsList>;
 }
 
-const PostInfo: React.FC<Props> = ({ posts }) => {
+const PostInfo: React.FC<Props> = ({ request }) => {
   const params = useParams();
   const navigate = useNavigate();
+  const [info, setInfo] = useState<PostMutation | undefined>(undefined);
+  const [postKey, setPostKey] = useState("");
 
-  const index = Object.values(posts).findIndex(
-    (post) => post.postId.toString() === params.postId
-  );
-  let info;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const posts = await request();
+        const index = Object.values(posts).findIndex(
+          (post) => post.postId === params.postId
+        );
+        if (index !== -1) {
+          setInfo([Object.values(posts)[index]][0]);
+          setPostKey([Object.keys(posts)[index]][0]);
+        }
+      } catch (error) {
+        throw error;
+      }
+    };
 
-  if (index !== -1) {
-    info = [Object.values(posts)[index]][0];
-  }
+    void fetchData();
+  }, [request]);
 
   const onDelete = async () => {
-    await axiosApi.delete("posts/" + [Object.keys(posts)[index]][0] + ".json");
+    await axiosApi.delete("posts/" + postKey + ".json");
     navigate("/");
   };
+
+  const timestamp = parseInt(info?.postId || "", 10);
+  const date = new Date(timestamp).toLocaleString();
 
   return (
     <div className="mt-5">
       <h3>{info?.title}</h3>
       <p>{info?.description}</p>
+      <p className="text-secondary">{date}</p>
       <Link to={"/post/" + params.postId + "/edit"}>Edit Article</Link>
       <button onClick={onDelete} className="btn btn-danger">
         delete

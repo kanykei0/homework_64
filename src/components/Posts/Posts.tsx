@@ -9,14 +9,18 @@ interface Props {
 const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <div>
-      {Object.keys(posts).map((key) => (
-        <PostItem
-          key={key}
-          postId={posts[key].postId}
-          title={posts[key].title}
-          description={posts[key].description}
-        />
-      ))}
+      {posts ? (
+        Object.keys(posts).map((key) => (
+          <PostItem
+            key={key}
+            postId={posts[key].postId}
+            title={posts[key].title}
+            description={posts[key].description}
+          />
+        ))
+      ) : (
+        <div className="mt-5 text-secondary">No Posts</div>
+      )}
     </div>
   );
 };

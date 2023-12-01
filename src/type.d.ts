@@ -3,7 +3,7 @@ export interface Post {
   description: string;
 }
 export interface PostMutation {
-  postId: number;
+  postId: string;
   title: string;
   description: string;
 }
