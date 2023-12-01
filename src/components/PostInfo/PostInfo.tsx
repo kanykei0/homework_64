@@ -29,7 +29,7 @@ const PostInfo: React.FC<Props> = ({ posts }) => {
     <div className="mt-5">
       <h3>{info?.title}</h3>
       <p>{info?.description}</p>
-      <Link to={"/posts/" + params.postId + "/edit"}>Edit Article</Link>
+      <Link to={"/post/" + params.postId + "/edit"}>Edit Article</Link>
       <button onClick={onDelete} className="btn btn-danger">
         delete
       </button>

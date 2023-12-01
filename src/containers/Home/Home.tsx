@@ -16,7 +16,6 @@ const Home = () => {
         setPosts(response.data);
       } finally {
         setLoading(false);
-        console.log("ok");
       }
     };
     void request();

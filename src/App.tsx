@@ -7,6 +7,7 @@ import PostInfo from "./components/PostInfo/PostInfo";
 import { PostsList } from "./type";
 import { useEffect, useState } from "react";
 import axiosApi from "./axiosApi";
+import PostEdit from "./components/PostEdit/PostEdit";
 
 function App() {
   const [posts, setPosts] = useState<PostsList>({});
@@ -16,8 +17,8 @@ function App() {
       try {
         const response = await axiosApi.get("posts.json");
         setPosts(response.data);
-      } finally {
-        console.log("ok");
+      } catch (error) {
+        throw error;
       }
     };
     void request();
@@ -33,6 +34,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/new-post" element={<PostForm />} />
           <Route path="/post/:postId" element={<PostInfo posts={posts} />} />
+          <Route
+            path="/post/:postId/edit"
+            element={<PostEdit posts={posts} />}
+          />
         </Routes>
       </main>
     </>
