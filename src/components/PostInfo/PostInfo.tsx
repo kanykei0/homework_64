@@ -41,13 +41,18 @@ const PostInfo: React.FC<Props> = ({ request }) => {
   const date = new Date(timestamp).toLocaleString();
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 shadow py-5 px-4">
       <h3>{info?.title}</h3>
       <p>{info?.description}</p>
       <p className="text-secondary">{date}</p>
-      <Link to={"/post/" + params.postId + "/edit"}>Edit Article</Link>
+      <Link
+        className="btn btn-success me-4"
+        to={"/post/" + params.postId + "/edit"}
+      >
+        Edit post
+      </Link>
       <button onClick={onDelete} className="btn btn-danger">
-        delete
+        Delete
       </button>
     </div>
   );

@@ -8,7 +8,7 @@ interface Props {
 
 const Posts: React.FC<Props> = ({ posts }) => {
   return (
-    <div>
+    <div className="d-flex flex-column-reverse">
       {posts ? (
         Object.keys(posts).map((key) => (
           <PostItem

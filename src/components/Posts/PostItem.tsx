@@ -12,7 +12,9 @@ const PostItem: React.FC<PostMutation> = ({ postId, title }) => {
       <Card.Body>
         <Card.Text>{date}</Card.Text>
         <Card.Title>{title}</Card.Title>
-        <Link to={"/post/" + postId}>View more &gt;</Link>
+        <Link className="btn btn-success" to={"/post/" + postId}>
+          View more &gt;
+        </Link>
       </Card.Body>
     </Card>
   );

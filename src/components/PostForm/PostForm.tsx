@@ -40,7 +40,7 @@ const PostForm: React.FC = () => {
   };
 
   let form = (
-    <Form onSubmit={onFormSubmit}>
+    <Form onSubmit={onFormSubmit} className="shadow">
       <Form.Group className="mb-3 mt-4">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -60,7 +60,7 @@ const PostForm: React.FC = () => {
         />
       </Form.Group>
       <Button variant="primary" type="submit" className="mt-4">
-        Submit
+        Add
       </Button>
     </Form>
   );
