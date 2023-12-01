@@ -13,7 +13,7 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/article-form" element={<PostForm />} />
+          <Route path="/new-post" element={<PostForm />} />
         </Routes>
       </main>
     </>
