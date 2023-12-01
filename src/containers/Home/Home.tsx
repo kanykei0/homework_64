@@ -1,29 +1,17 @@
-import { useEffect, useState } from "react";
-import axiosApi from "../../axiosApi";
-import { PostMutation } from "../../type";
 import Posts from "../../components/Posts/Posts";
+import { Spinner } from "react-bootstrap";
+import { PostMutation } from "../../type";
+import React from "react";
 
-const Home = () => {
-  const [posts, setPosts] = useState<PostMutation[]>([]);
+interface Props {
+  loading: boolean;
+  posts: PostMutation[];
+}
 
-  useEffect(() => {
-    const request = async () => {
-      try {
-        const response = await axiosApi.get("posts.json");
-        setPosts(response.data);
-      } finally {
-        console.log(posts);
-      }
-    };
-
-    void request();
-  }, []);
-
+const Home: React.FC<Props> = ({ loading, posts }) => {
   return (
     <>
-      <div>
-        <Posts posts={posts} />
-      </div>
+      <div>{loading ? <Spinner /> : <Posts posts={posts} />}</div>
     </>
   );
 };

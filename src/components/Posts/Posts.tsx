@@ -12,6 +12,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
       {Object.values(posts).map((post) => (
         <PostItem
           key={post.postId}
+          postId={post.postId}
           title={post.title}
           description={post.description}
         />
