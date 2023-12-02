@@ -95,16 +95,20 @@ const PostEdit: React.FC<Props> = ({ request }) => {
           placeholder="..."
           onChange={changePost}
           value={post.title}
+          required
         />
       </Form.Group>
       <Form.Group className="mb-3 mt-4">
         <Form.Label>Description</Form.Label>
         <Form.Control
+          as="textarea"
+          rows={4}
           name="description"
           type="text"
           placeholder="..."
           onChange={changePost}
           value={post.description}
+          required
         />
       </Form.Group>
       <Button variant="primary" type="submit" className="mt-4">
